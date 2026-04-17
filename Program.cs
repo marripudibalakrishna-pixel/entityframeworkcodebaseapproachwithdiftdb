@@ -1,6 +1,7 @@
 using entityframeworkcodebaseapproachwithdiftdb.DBcontext;
 using entityframeworkcodebaseapproachwithdiftdb.Interfaces;
 using entityframeworkcodebaseapproachwithdiftdb.Repositories;
+using entityframeworkcodebaseapproachwithdiftdb.services;
 using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,7 @@ builder.Services.AddDbContext<EmployeeContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("EmployeeCodeFirstApproachDatabase"));
 });
 builder.Services.AddScoped<Iemployeerepository, Employeerepository>();
+builder.Services.AddScoped<Iemployeeseervice, Employeeservice>();
 
 var app = builder.Build();
 
