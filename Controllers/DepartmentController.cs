@@ -1,22 +1,25 @@
 ﻿using entityframeworkcodebaseapproachwithdiftdb.Dtos;
 using entityframeworkcodebaseapproachwithdiftdb.Interfaces;
+using entityframeworkcodebaseapproachwithdiftdb.services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+
 namespace entityframeworkcodebaseapproachwithdiftdb.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EmployeeController : ControllerBase
+    public class DepartmentController : ControllerBase
     {
-        private readonly Iemployeeseervice _employeeService;
-        public EmployeeController(Iemployeeseervice employeeService)
+        private readonly Idepartmentservice _departmentservice;
+
+        public DepartmentController(Idepartmentservice departmentservice)
         {
-            _employeeService = employeeService;
+            _departmentservice = departmentservice; 
         }
         [HttpPost]
         [Route("AddEmployee")]
         //Here modelbinder bind your request body data to your model class.
-        public async Task<IActionResult> Post([FromBody] Employeedto empdto)
+        public async Task<IActionResult> Post([FromBody] departmentdto deptdto)
         //line 19 and 32 should have same parameter name because model binder will bind the request body data to this parameter and if you are not pass any payload from request body model binder will excute this if condition and  return 400badrequest error.
         {
             try
@@ -27,8 +30,8 @@ namespace entityframeworkcodebaseapproachwithdiftdb.Controllers
                 }
                 else
                 {
-                    var empdata = await _employeeService.Addemployee(empdto);
-                    return StatusCode(StatusCodes.Status201Created, empdata);
+                    var deptdata = await _departmentservice.AddDepartment(deptdto);
+                    return StatusCode(StatusCodes.Status201Created, deptdata);
                 }
             }
             catch (Exception ex)
@@ -37,16 +40,16 @@ namespace entityframeworkcodebaseapproachwithdiftdb.Controllers
             }
         }
         [HttpDelete]
-        [Route("DeleteEmployeeByEmpid/{empid}")]
-        public async Task<IActionResult> delete(int empid)
+        [Route("DeleteDepartmentByDeptid/{deptid}")]
+        public async Task<IActionResult> delete(int deptid)
         {
-            if (empid < 0)
+            if (deptid < 0)
             {//If input parameters are wrongly sent or empty, we will get 400 badrequest statuscode:Status400BadRequest
                 return StatusCode(StatusCodes.Status400BadRequest, "bad request");
             }
             try
             {
-                var empdata = await _employeeService.DeleteById(empid);//calling service layer method to delete employee data from db by empid
+                var empdata = await _departmentservice.Deletedepartmentbyid(deptid);//calling service layer method to delete employee data from db by empid
                 if (empdata == null)
                 {//in db if you get empty data we need to retrun this statuscode:Status404NotFound
                     return StatusCode(StatusCodes.Status404NotFound, "empdata not  found");
@@ -67,14 +70,14 @@ namespace entityframeworkcodebaseapproachwithdiftdb.Controllers
         {
             try
             {
-                var empdata = await _employeeService.GetAll();// calling service layer method to get all employee data from db
-                if (empdata == null)
+                var deptdata = await _departmentservice.GetDepartments();// calling service layer method to get all employee data from db
+                if (deptdata == null)
                 {
                     return StatusCode(StatusCodes.Status400BadRequest, "bad request");
                 }
                 else
                 {
-                    return StatusCode(StatusCodes.Status200OK, empdata);
+                    return StatusCode(StatusCodes.Status200OK, deptdata);
                 }
             }
             catch (Exception ex)
@@ -85,7 +88,7 @@ namespace entityframeworkcodebaseapproachwithdiftdb.Controllers
         }
         [HttpPut]
         [Route("UpdateEmployee")]
-        public async Task<IActionResult> put([FromBody] Employeedto empdto)
+        public async Task<IActionResult> put([FromBody] departmentdto deptdto)
         {
             try
             {
@@ -96,8 +99,8 @@ namespace entityframeworkcodebaseapproachwithdiftdb.Controllers
                 }
                 else
                 {
-                    var empdata = await _employeeService.Updateemployee(empdto);
-                    return StatusCode(StatusCodes.Status200OK, empdata);
+                    var deptdata = await _departmentservice.Updatedepartment(deptdto);
+                    return StatusCode(StatusCodes.Status200OK, deptdata);
                 }
             }
             catch (Exception ex)
@@ -106,17 +109,17 @@ namespace entityframeworkcodebaseapproachwithdiftdb.Controllers
             }
         }
         [HttpGet]
-        [Route("GetEmployeeByEmpid/{empid}")]
-        public async Task<IActionResult> Get(int empid)
+        [Route("GetEmployeeByEmpid/{deptid}")]
+        public async Task<IActionResult> Get(int deptid)
         {
-            if (empid < 0)
+            if (deptid < 0)
             {
                 return StatusCode(StatusCodes.Status400BadRequest, "bad request");
             }
             try
             {
-                var empdata = await _employeeService.GetById(empid);
-                return StatusCode(StatusCodes.Status200OK, empdata);
+                var deptdata = await _departmentservice.Deletedepartmentbyid(deptid);
+                return StatusCode(StatusCodes.Status200OK, deptdata);
             }
             catch (Exception ex)
             {

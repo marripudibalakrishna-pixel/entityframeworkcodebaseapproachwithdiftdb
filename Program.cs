@@ -15,8 +15,14 @@ builder.Services.AddDbContext<EmployeeContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("EmployeeCodeFirstApproachDatabase"));
 });
+builder.Services.AddDbContext<DepartmentContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DepartmentCodeFirstApproachDatabase"));
+});
 builder.Services.AddScoped<Iemployeerepository, Employeerepository>();
 builder.Services.AddScoped<Iemployeeseervice, Employeeservice>();
+builder.Services.AddScoped<Idepartmentrepository, Departmentrepository>();
+builder.Services.AddScoped<Idepartmentservice, Departmentservice>();
 
 var app = builder.Build();
 

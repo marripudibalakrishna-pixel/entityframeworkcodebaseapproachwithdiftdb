@@ -28,8 +28,6 @@ namespace entityframeworkcodebaseapproachwithdiftdb.Repositories
                 _employeeContext.Employees.Remove(resu);
                 _employeeContext.SaveChanges();
                 return true;
-
-
             }
             return false;
         }
