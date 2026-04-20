@@ -8,9 +8,9 @@ namespace entityframeworkcodebaseapproachwithdiftdb.services
     public class Departmentservice : Idepartmentservice
        {
 
-        private readonly Departmentrepository _departmentrepository;
+        private readonly Idepartmentrepository _departmentrepository;
 
-        public Departmentservice(Departmentrepository departmentrepository) 
+        public Departmentservice(Idepartmentrepository departmentrepository) 
         { 
             _departmentrepository = departmentrepository;
         }
