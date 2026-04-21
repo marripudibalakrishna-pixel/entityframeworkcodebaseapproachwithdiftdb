@@ -50,7 +50,7 @@ namespace entityframeworkcodebaseapproachwithdiftdb.Controllers
             try
             {
                 var empdata = await _departmentservice.Deletedepartmentbyid(deptid);//calling service layer method to delete employee data from db by empid
-                if (empdata == null)
+                if (empdata == false)
                 {//in db if you get empty data we need to retrun this statuscode:Status404NotFound
                     return StatusCode(StatusCodes.Status404NotFound, "empdata not  found");
                 }

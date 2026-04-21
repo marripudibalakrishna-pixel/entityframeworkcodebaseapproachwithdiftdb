@@ -19,11 +19,16 @@ builder.Services.AddDbContext<DepartmentContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DepartmentCodeFirstApproachDatabase"));
 });
+builder.Services.AddDbContext<OrderContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("OrderCodeFirstApproachDatabase"));
+});
 builder.Services.AddScoped<Iemployeerepository, Employeerepository>();
 builder.Services.AddScoped<Iemployeeseervice, Employeeservice>();
 builder.Services.AddScoped<Idepartmentrepository, Departmentrepository>();
 builder.Services.AddScoped<Idepartmentservice, Departmentservice>();
-
+builder.Services.AddScoped<IOrdersrepository, Orderrepository>();
+builder.Services.AddScoped<IOrderservice, Orderservice>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
