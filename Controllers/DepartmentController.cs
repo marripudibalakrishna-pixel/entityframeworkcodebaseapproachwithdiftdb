@@ -109,7 +109,7 @@ namespace entityframeworkcodebaseapproachwithdiftdb.Controllers
             }
         }
         [HttpGet]
-        [Route("GetEmployeeByEmpid/{deptid}")]
+        [Route("GetByDeptid/{deptid}")]
         public async Task<IActionResult> Get(int deptid)
         {
             if (deptid < 0)
@@ -118,7 +118,7 @@ namespace entityframeworkcodebaseapproachwithdiftdb.Controllers
             }
             try
             {
-                var deptdata = await _departmentservice.Deletedepartmentbyid(deptid);
+                var deptdata = await _departmentservice.getdepartmentid(deptid);
                 return StatusCode(StatusCodes.Status200OK, deptdata);
             }
             catch (Exception ex)
